@@ -1,6 +1,10 @@
-import java.util.*;
+﻿package Graph;
 
-public class Main
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Components
 {
     private static void DFS(
             int currentVertex,
@@ -69,8 +73,7 @@ public class Main
             System.out.println();
         }
     }
-
-    public static void main(String[] args)
+    public static void GetComponents()
     {
         var adjacencyList = GetAdjacencyList();
         var components = GetComponents(adjacencyList);

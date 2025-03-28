@@ -1,4 +1,4 @@
-﻿package BaseDataStructures;
+package BaseDataStructures;
 
 import java.util.LinkedList;
 import java.util.Queue;

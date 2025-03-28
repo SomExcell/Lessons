@@ -1,4 +1,4 @@
-﻿package BaseDataStructures;
+package BaseDataStructures;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-﻿package BinarySearchAndSorting;
+package BinarySearchAndSorting;
 
 import java.util.ArrayList;
 import java.util.Arrays;

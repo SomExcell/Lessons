@@ -1,4 +1,4 @@
-﻿package BinarySearchAndSorting;
+package BinarySearchAndSorting;
 
 public class Sqrt
 {
