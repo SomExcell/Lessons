@@ -1,79 +1,113 @@
+import Hash.File;
+
 import java.util.*;
 
 public class Main
 {
-    private static void DFS(
-            int currentVertex,
-            HashSet<Integer> visited,
-            ArrayList<Integer> component,
-            ArrayList<ArrayList<Integer>> adjacencyList)
-    {
-        visited.add(currentVertex);
-        component.add(currentVertex);
-
-        for(var vertex : adjacencyList.get(currentVertex))
-            if(!visited.contains(vertex))
-                DFS(vertex, visited, component, adjacencyList);
-    }
-
-    private static ArrayList<ArrayList<Integer>> GetComponents(ArrayList<ArrayList<Integer>> adjacencyList)
-    {
-        var visited = new HashSet<Integer>();
-        var components = new ArrayList<ArrayList<Integer>>();
-
-        for(var vertex = 1; vertex < adjacencyList.size(); vertex++)
-        {
-            if(visited.contains(vertex))
-                continue;
-
-            var component = new ArrayList<Integer>();
-            DFS(vertex, visited, component, adjacencyList);
-            components.add(component);
-        }
-
-        return components;
-    }
-
-    private static ArrayList<ArrayList<Integer>> GetAdjacencyList()
-    {
-        var scanner = new Scanner(System.in);
-        var countVertex = scanner.nextInt();
-        var countEdge = scanner.nextInt();
-
-        var adjacencyList = new ArrayList<ArrayList<Integer>>();
-        for(var i = 0; i < countVertex + 1; i++)
-            adjacencyList.add(new ArrayList<>());
-
-        for (var i = 0; i < countEdge; i++)
-        {
-            var firstVertex = scanner.nextInt();
-            var secondVertex = scanner.nextInt();
-
-            adjacencyList.get(firstVertex).add(secondVertex);
-            adjacencyList.get(secondVertex).add(firstVertex);
-        }
-
-        return adjacencyList;
-    }
-
-    private static void Print(ArrayList<ArrayList<Integer>> components)
-    {
-        System.out.println(components.size());
-
-        for(var component : components) {
-            System.out.println(component.size());
-
-            for (var vertex : component)
-                System.out.print(vertex + " ");
-
-            System.out.println();
-        }
-    }
 
     public static void main(String[] args)
     {
-        var adjacencyList = GetAdjacencyList();
-        var components = GetComponents(adjacencyList);
-        Print(components);
+        var file = new File("abacaba");
+        System.out.println(file.containsSubstring("cac"));
+        System.out.println(file.containsSubstring("bab"));
+        System.out.println(file.containsSubstring("abacabaa"));
+
+
+
+
     }
 }
+
+/*
+#include <iostream>
+#include <vector>
+
+void fillPows(std::vector<size_t>& powsForHash)
+{
+    size_t coeffHash = 10, divider = 1e9 + 7;
+    powsForHash[0] = 1;
+    for (size_t i = 1; i < powsForHash.size(); ++i)
+    {
+        powsForHash[i] = (powsForHash[i - 1] * coeffHash) % divider;
+    }
+}
+
+void hashFile(const std::string& file, std::vector<size_t>& hashForFile, std::vector<size_t>& powsForHash)
+{
+
+    size_t coeffHash = 10, divider = 1e9 + 7;
+    fillPows(powsForHash);
+    for (size_t i = 1; i <= file.size(); ++i)
+    {
+        hashForFile[i] = (hashForFile[i - 1] * coeffHash + (file[i - 1] - 96)) % divider;
+    }
+}
+
+size_t hashString(const std::string& string)
+{
+    size_t result = 0, coeffHash = 10, divider = 1e9 + 7;
+    for (size_t i = 1; i <= string.size(); ++i)
+    {
+        result = (result * coeffHash + (string[i - 1] - 96)) % divider;
+    }
+    return result;
+}
+
+void searchStringInText(std::vector<size_t> hashForFile, std::vector<size_t> powsForHash, const size_t& hashQueryString, const size_t& lengthQueryString)
+{
+    size_t hashSubStringLeft, hashSubStringRight, hashSubString, divider = 1e9 + 7, countStringInFile = 0;
+    std::vector <size_t> indices;
+    for (size_t i = lengthQueryString; i < hashForFile.size(); ++i)
+    {
+        hashSubStringLeft = (hashForFile[i - lengthQueryString] * powsForHash[lengthQueryString]) % divider;
+        hashSubStringRight = hashForFile[i];
+        if (hashSubStringRight < hashSubStringLeft)
+        {
+            hashSubStringRight += divider;
+        }
+        hashSubString = hashSubStringRight - hashSubStringLeft;
+        if (hashSubString == hashQueryString)
+        {
+            ++countStringInFile;
+            indices.push_back(i - lengthQueryString);
+        }
+    }
+
+    std::cout << countStringInFile << ' ';
+    for (size_t i = 0; i < countStringInFile; ++i)
+    {
+        std::cout << indices[i] << ' ';
+    }
+    std::cout << '\n';
+
+}
+
+void queriesInText(std::vector<size_t> hashForFile, std::vector<size_t> powsForHash, size_t countQueries)
+{
+    std::string stringFromQuery;
+    size_t hashForQueryString;
+    for (size_t i = 0; i < countQueries; ++i)
+    {
+        std::cin >> stringFromQuery;
+        hashForQueryString = hashString(stringFromQuery);
+        searchStringInText(hashForFile, powsForHash, hashForQueryString, stringFromQuery.size());
+    }
+}
+
+int main()
+{
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+
+    std::string file;
+    int countQueries;
+    std::cin >> file >> countQueries;
+    std::vector<size_t> hashForFile(file.size() + 1);
+    std::vector<size_t> powsForHash(file.size() + 1);
+
+    hashFile(file, hashForFile, powsForHash);
+    queriesInText(hashForFile, powsForHash, countQueries);
+
+    return 0;
+}*/

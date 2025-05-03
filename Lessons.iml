@@ -7,5 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bluecatcode.junit.4.10.extended" level="project" />
+    <orderEntry type="library" name="tngtech.junit.dataprovider.jupiter.params" level="project" />
+    <orderEntry type="library" name="junit.jupiter.params" level="project" />
   </component>
 </module>
